@@ -38,13 +38,13 @@ fun CurrencyChip(
     )
 }
 
-class PreviewParameterProviderCurrencyChip : PreviewParameterProvider<Boolean> {
+private class PreviewParameterProviderCurrencyChip : PreviewParameterProvider<Boolean> {
     override val values = listOf(false, true).asSequence()
 }
 
 @Preview
 @Composable
-fun PreviewCurrencyChip(
+private fun PreviewCurrencyChip(
     @PreviewParameter(PreviewParameterProviderCurrencyChip::class) enabled: Boolean
 ){
     CurrencyChip(onClick = {}, enabled = enabled)
