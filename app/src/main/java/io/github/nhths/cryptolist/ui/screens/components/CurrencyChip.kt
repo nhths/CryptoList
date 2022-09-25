@@ -1,13 +1,19 @@
 package io.github.nhths.cryptolist.ui.screens.components
 
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import io.github.nhths.cryptolist.ui.theme.ChipTextStyle
 import io.github.nhths.cryptolist.ui.theme.GrayMain
 import io.github.nhths.cryptolist.ui.theme.OrangeMain
 import io.github.nhths.cryptolist.ui.theme.OrangeSecondary
@@ -15,23 +21,33 @@ import io.github.nhths.cryptolist.ui.theme.OrangeSecondary
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CurrencyChip(
-    onClick: () -> Unit,
-    enabled: Boolean = false
+    label: String,
+    selected: Boolean = false,
+    modifier: Modifier = Modifier
+        .width(90.dp) //rounded from 89 in figma
+        .height(32.dp),
+    onClick: () -> Unit = {}
 ){
-    SuggestionChip(
+    InputChip(
         onClick = onClick,
-        label = { Text(text = "test")},
-        enabled = enabled,
+        label = {
+            Text(
+                text = label,
+                style = ChipTextStyle
+            )
+        },
+        selected = selected,
         shape = RoundedCornerShape(16.dp),
-        colors = SuggestionChipDefaults
-            .suggestionChipColors(
+        modifier = modifier,
+        colors = InputChipDefaults
+            .inputChipColors(
                 labelColor = OrangeMain,
                 disabledLabelColor = Color.Black,
                 containerColor = OrangeSecondary,
                 disabledContainerColor = GrayMain
             ),
-        border = SuggestionChipDefaults
-            .suggestionChipBorder(
+        border = InputChipDefaults
+            .inputChipBorder(
                 borderColor = Color.Transparent,
                 disabledBorderColor = Color.Transparent
             )
@@ -45,7 +61,11 @@ private class PreviewParameterProviderCurrencyChip : PreviewParameterProvider<Bo
 @Preview
 @Composable
 private fun PreviewCurrencyChip(
-    @PreviewParameter(PreviewParameterProviderCurrencyChip::class) enabled: Boolean
+    @PreviewParameter(PreviewParameterProviderCurrencyChip::class) selected: Boolean
 ){
-    CurrencyChip(onClick = {}, enabled = enabled)
+    var selectedVal = remember{ mutableStateOf(selected)}
+    CurrencyChip(selectedVal.value.toString(), selectedVal.value){
+        println(selectedVal.value.toString())
+        selectedVal.value = selectedVal.value.not()
+    }
 }
