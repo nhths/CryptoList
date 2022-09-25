@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">CryptoList</string>
+    
+    <string name="title_crypto_list">Список криптовалют</string>
+
+    <string name="error_message_simple">Случилась какая-то ошибка :( Попробуем снова?</string>
+    <string name="error_message_loading">Произошла ошибка при загрузке</string>
+
+    <string name="button_try">Попробовать</string>
+    
+    <string name="title_description">Описание</string>
+    <string name="title_categories">Категории</string>
 </resources>
