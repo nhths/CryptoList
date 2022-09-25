@@ -45,9 +45,11 @@ val IssueTextStyle = ContentTextStyle.copy(
     lineHeight = 18.sp //rounded from 17.64 in figma
 )
 
-val ChipTextStyle = ContentTextStyle.copy(
+val ChipTextStyle = TextStyle(
+    fontFamily = FontFamily(Font(R.font.roboto_regular)),
+    fontWeight = FontWeight.W400,
     fontSize = 14.sp,
-    lineHeight = 20.sp
+    lineHeight = 20.sp, //rounded from 18.75 in figma
 )
 
 val ItemLabelStyle = TextStyle(
