@@ -45,6 +45,11 @@ val IssueTextStyle = ContentTextStyle.copy(
     lineHeight = 18.sp //rounded from 17.64 in figma
 )
 
+val ChipTextStyle = ContentTextStyle.copy(
+    fontSize = 14.sp,
+    lineHeight = 20.sp
+)
+
 val ItemLabelStyle = TextStyle(
     fontFamily = FontFamily(Font(R.font.plusjakartasans)),
     fontWeight = FontWeight.W500,
