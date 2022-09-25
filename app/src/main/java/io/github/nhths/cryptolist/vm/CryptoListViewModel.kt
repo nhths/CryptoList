@@ -1,14 +1,12 @@
 package io.github.nhths.cryptolist.vm
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.github.nhths.cryptolist.ui.model.CryptoItemModel
 import io.github.nhths.cryptolist.ui.model.CurrencyItemModel
-import java.util.Currency
 
-class CryptoListViewModel(application: Application) : AndroidViewModel(application) {
+class CryptoListViewModel() : ViewModel() {
 
     //stub
     val cryptoList: LiveData<List<CryptoItemModel>> = MutableLiveData<List<CryptoItemModel>>()
