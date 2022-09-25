@@ -46,10 +46,10 @@ fun CurrencyChip(
         modifier = modifier,
         colors = InputChipDefaults
             .inputChipColors(
-                labelColor = OrangeMain,
-                disabledLabelColor = Color.Black,
-                containerColor = OrangeSecondary,
-                disabledContainerColor = GrayMain
+                labelColor = Color.Black,
+                selectedLabelColor = OrangeMain,
+                containerColor = GrayMain,
+                selectedContainerColor = OrangeSecondary
             ),
         border = InputChipDefaults
             .inputChipBorder(
