@@ -20,7 +20,7 @@ class CryptoListRepository {
 
     private val cryptoListService = retrofit.create(CryptoListService::class.java)
 
-    private val _cryptoList = MutableLiveData<List<CryptoModel>>(emptyList())
+    private val _cryptoList = MutableLiveData<List<CryptoModel>>()
     val cryptoList:LiveData<List<CryptoModel>> = _cryptoList
 
     private val _listError = MutableLiveData<Throwable>()
