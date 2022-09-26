@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.nhths.cryptolist.R
@@ -40,7 +41,13 @@ fun LoadingCryptoErrorScreen(
 
         Text(
             text = message,
-            style = IssueTextStyle
+            style = IssueTextStyle,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .padding(
+                    start = 79.dp,
+                    end = 79.dp
+                )
             )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -62,7 +69,10 @@ fun LoadingCryptoErrorScreen(
 private fun PreviewLoadingCryptoErrorScreen(){
     LoadingCryptoErrorScreen(
         icon = painterResource(id = R.drawable.crypto_stub),
-        message = "What's went wrong....",
+        message = "What's went wrong.... Lorem ipsum dolor sit amet, " +
+                "consectetur adipiscing elit. Maecenas gravida tincidunt augue vitae dictum." +
+                " Vestibulum suscipit ligula at congue vulputate." +
+                " Phasellus aliquam nulla in maximus sollicitudin.",
         onClick = {}
     )
 }
