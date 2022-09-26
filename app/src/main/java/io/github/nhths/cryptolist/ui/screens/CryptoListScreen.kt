@@ -1,6 +1,5 @@
 package io.github.nhths.cryptolist.ui.screens
 
-import android.os.strictmode.UntaggedSocketViolation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import io.github.nhths.cryptolist.R
@@ -25,16 +25,16 @@ import io.github.nhths.cryptolist.vm.CryptoListViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CryptoListScreen(
-    viewModel: CryptoListViewModel = CryptoListViewModel(),
+    _viewModel: CryptoListViewModel = viewModel(),
     onCryptoSelected:(cryptoId:String) -> Unit
 ){
-    val state by viewModel.state.observeAsState()
-    val currencyList by viewModel.currencyList.observeAsState()
-    val cryptoList by viewModel.cryptoList.observeAsState()
-    val selectedCurrency by viewModel.selectedCurrency.observeAsState()
+    val state by _viewModel.state.observeAsState()
+    val currencyList by _viewModel.currencyList.observeAsState()
+    val cryptoList by _viewModel.cryptoList.observeAsState()
+    val selectedCurrency by _viewModel.selectedCurrency.observeAsState()
 
-    val snackbarHostState by viewModel.snackbarState.observeAsState()
-    val swipeRefreshState by viewModel.refreshState.observeAsState()
+    val snackbarHostState by _viewModel.snackbarState.observeAsState()
+    val swipeRefreshState by _viewModel.refreshState.observeAsState()
 
     Scaffold(
         topBar = {
@@ -42,7 +42,7 @@ fun CryptoListScreen(
                 title = stringResource(id = R.string.title_crypto_list),
                 currencyList = currencyList!!,
                 selected = selectedCurrency!!,
-                onCurrencyItemClicked = {pos, item -> viewModel.onCurrencySelected(pos, item)})
+                onCurrencyItemClicked = {pos, item -> _viewModel.onCurrencySelected(pos, item)})
         },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState!!){
@@ -54,15 +54,15 @@ fun CryptoListScreen(
             when(state){
                 CryptoListViewModel.State.SHOWING -> {
                     Listing(
-                        cryptoItems = cryptoList?: listOf(),
-                        onRefreshSwiped = {viewModel.onListUpdate()},
+                        cryptoItems = cryptoList!!,
+                        onRefreshSwiped = {_viewModel.onListUpdate()},
                         swipeRefreshState = swipeRefreshState!!,
                         onCryptoSelected = onCryptoSelected
                     )
                 }
                 CryptoListViewModel.State.ERROR ->{
                     Error(){
-                        viewModel.onListUpdate()
+                        _viewModel.onListUpdate()
                     }
                 }
                 else ->{//State loading
