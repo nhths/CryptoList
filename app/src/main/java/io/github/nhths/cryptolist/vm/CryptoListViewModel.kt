@@ -18,9 +18,11 @@ class CryptoListViewModel() : ViewModel() {
     val state:LiveData<State> = _state
 
     //stub
-    val cryptoList: LiveData<List<CryptoItemModel>> = MutableLiveData<List<CryptoItemModel>>()
+    private val _cryptoList = MutableLiveData<List<CryptoItemModel>>()
+    val cryptoList: LiveData<List<CryptoItemModel>> = _cryptoList
 
-    val currencyList: LiveData<List<CurrencyItemModel>> = MutableLiveData<List<CurrencyItemModel>>()
+    private val _currencyList = MutableLiveData<List<CurrencyItemModel>>()
+    val currencyList: LiveData<List<CurrencyItemModel>> = _currencyList
 
     private val _selectedCurrency: MutableLiveData<CurrencyItemModel> = MutableLiveData<CurrencyItemModel>()
     val selectedCurrency: LiveData<CurrencyItemModel> = _selectedCurrency
