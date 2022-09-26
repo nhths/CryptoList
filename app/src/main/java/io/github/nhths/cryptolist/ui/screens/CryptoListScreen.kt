@@ -1,5 +1,6 @@
 package io.github.nhths.cryptolist.ui.screens
 
+import android.os.strictmode.UntaggedSocketViolation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -60,7 +61,9 @@ fun CryptoListScreen(
                     )
                 }
                 CryptoListViewModel.State.ERROR ->{
-                    Error()
+                    Error(){
+                        viewModel.onListUpdate()
+                    }
                 }
                 else ->{//State loading
                     LoadingScreen()
@@ -95,10 +98,13 @@ private fun Listing(
 }
 
 @Composable
-private fun Error(){
+private fun Error(
+    onClickTry: () -> Unit
+){
     LoadingCryptoErrorScreen(
         icon = painterResource(id = R.drawable.crypto_stub),
-        message = stringResource(id = R.string.error_message_simple)
+        message = stringResource(id = R.string.error_message_simple),
+        onClick = onClickTry
     )
 }
 
