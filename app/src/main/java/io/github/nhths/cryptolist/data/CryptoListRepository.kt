@@ -38,7 +38,11 @@ class CryptoListRepository {
                     call: Call<List<CryptoModel>>,
                     response: Response<List<CryptoModel>>
                 ) {
-                    _cryptoList.postValue(response.body())
+                    if (response.code() == 429) {
+                        _listError.postValue(object : Throwable(){})
+                    } else {
+                        _cryptoList.postValue(response.body())
+                    }
                 }
 
                 override fun onFailure(call: Call<List<CryptoModel>>, t: Throwable) {
