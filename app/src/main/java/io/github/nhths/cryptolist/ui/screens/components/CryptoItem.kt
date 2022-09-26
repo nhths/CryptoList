@@ -99,7 +99,7 @@ private fun PreviewCurrencyItem(){
         currencySymbol = "$",
         price = 6666666.666,
         diffPercentage = -66.666,
-        imageUrl = "https://static-00.iconduck.com/assets.00/polkadot-cryptocurrency-icon-512x512-p01ydom1.png"
+        imageUrl = "https://user-images.githubusercontent.com/10561726/68166182-c7833780-ff76-11e9-80ce-0b5a153fcd2c.png"
     )
     CryptoItem(item)
 }
