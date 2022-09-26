@@ -6,6 +6,7 @@ import io.github.nhths.cryptolist.vm.CryptoDetailsViewModel
 
 @Composable
 fun CryptoDetailsScreen(
+    cryptoId: String,
     viewModel: CryptoDetailsViewModel = CryptoDetailsViewModel()
 ){
     Text(text = "crypto details")
