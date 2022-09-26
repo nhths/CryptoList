@@ -23,8 +23,8 @@ class CryptoDetailsRepository {
     private val _cryptoDetails = MutableLiveData<CryptoDetailsModel>()
     val cryptoDetails: LiveData<CryptoDetailsModel> = _cryptoDetails
 
-    private val _listError = MutableLiveData<Throwable>()
-    val listError: LiveData<Throwable> = _listError
+    private val _descriptionError = MutableLiveData<Throwable>()
+    val descriptionError: LiveData<Throwable> = _descriptionError
 
     fun update(cryptoId: String){
         download(cryptoId)
@@ -38,11 +38,14 @@ class CryptoDetailsRepository {
                     call: Call<CryptoDetailsModel>,
                     response: Response<CryptoDetailsModel>
                 ) {
+                    if (response.code() == 429) {
+                        _descriptionError.postValue(object : Throwable(){})
+                    }
                     _cryptoDetails.postValue(response.body())
                 }
 
                 override fun onFailure(call: Call<CryptoDetailsModel>, t: Throwable) {
-                   _listError.postValue(t)
+                   _descriptionError.postValue(t)
                 }
             })
     }
