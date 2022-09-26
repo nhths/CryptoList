@@ -8,6 +8,15 @@ import io.github.nhths.cryptolist.ui.model.CurrencyItemModel
 
 class CryptoListViewModel() : ViewModel() {
 
+    enum class State{
+        LOADING,
+        ERROR,
+        SHOWING
+    }
+
+    private val _state = MutableLiveData<State>()
+    val state:LiveData<State> = _state
+
     //stub
     val cryptoList: LiveData<List<CryptoItemModel>> = MutableLiveData<List<CryptoItemModel>>()
 
@@ -15,6 +24,10 @@ class CryptoListViewModel() : ViewModel() {
 
     private val _selectedCurrency: MutableLiveData<CurrencyItemModel> = MutableLiveData<CurrencyItemModel>()
     val selectedCurrency: LiveData<CurrencyItemModel> = _selectedCurrency
+
+    init {
+        _state.postValue(State.SHOWING)
+    }
 
     fun onListUpdate(){
 
