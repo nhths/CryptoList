@@ -18,7 +18,8 @@ fun MainNavHost(){
     ){
         composable(route = MainRoutes.CRYPTO_LIST.toString()){
             CryptoListScreen(
-                onCryptoSelected = { navController.navigate(MainRoutes.CRYPTO_DETAILS) }
+                onCryptoSelected = {
+                    navController.navigate("${MainRoutes.CRYPTO_DETAILS}/{${it}}") }
             )
         }
         composable(
@@ -26,7 +27,10 @@ fun MainNavHost(){
             arguments = listOf(navArgument("key") { type = NavType.StringType })
         ){
             val cryptoId = it.arguments!!.getString("key")!!
-            CryptoDetailsScreen(cryptoId = cryptoId)
+            CryptoDetailsScreen(
+                cryptoId = cryptoId,
+                onBackClicked = {navController.popBackStack()}
+            )
         }
     }
 }
