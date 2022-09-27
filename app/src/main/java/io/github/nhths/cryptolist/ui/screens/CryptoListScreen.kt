@@ -85,7 +85,10 @@ private fun Listing(
         onRefresh = onRefreshSwiped
     ) {
         LazyColumn(){
-            items(cryptoItems) {
+            items(
+                items = cryptoItems,
+                key = {it.id}
+                ) {
                 CryptoItem(
                     item = it,
                     onClick = {
