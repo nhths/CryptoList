@@ -41,10 +41,9 @@ fun CryptoItem(
                 end = 16.dp
             )
     ) {
-        val placeholder = painterResource(id = R.drawable.crypto_stub)
         val painter = rememberAsyncImagePainter(
             model = item.imageUrl,
-            placeholder = placeholder
+            placeholder = painterResource(id = R.drawable.crypto_stub)
         )
         Image(
             painter = painter,
