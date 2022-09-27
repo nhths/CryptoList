@@ -86,13 +86,13 @@ private fun Listing(
     ) {
         LazyColumn(){
             items(
-                items = cryptoItems,
-                key = {it.id}
-                ) {
+                count = cryptoItems.size, // get by index faster
+                key = {it}
+                ) {  index ->
                 CryptoItem(
-                    item = it,
+                    item = cryptoItems[index],
                     onClick = {
-                        onCryptoSelected(it.id)
+                        onCryptoSelected(cryptoItems[index].id)
                     }
                 )
             }
