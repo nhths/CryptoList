@@ -32,7 +32,7 @@ fun CryptoItem(
 ){
     Row(
         modifier = Modifier
-            .clickable { onClick }
+            .clickable { onClick() }
             .fillMaxWidth()
             .padding(
                 top = 8.dp,
