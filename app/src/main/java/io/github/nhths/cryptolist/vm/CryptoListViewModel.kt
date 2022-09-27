@@ -77,7 +77,6 @@ class CryptoListViewModel() : ViewModel() {
                 snackbarState.value!!.showSnackbar(message)
             }
         }
-
         refreshState.value!!.isRefreshing = false
     }
 
@@ -109,6 +108,7 @@ class CryptoListViewModel() : ViewModel() {
     fun onCurrencySelected(pos: Int, item: CurrencyItemModel){
         _selectedCurrency.postValue(pos)
         refreshState.value!!.isRefreshing = true
+        _state.postValue(State.LOADING) //Dumb fix for crypto list updating after change currency (no reaction on livedata<List>)
         cryptoListRepository.updateList(item.id)
     }
 
