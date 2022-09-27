@@ -92,10 +92,7 @@ class CryptoListViewModel() : ViewModel() {
         cryptoListRepository.listError.observeForever(errorObserver)
         cryptoListRepository.cryptoList.observeForever(listDownloadingObserver)
 
-        currencyList.observeForever { //and don't clear? because currencyList child of view model
-            cryptoListRepository.updateList(currencyList.value!!.get(selectedCurrency.value!!).id)
-        }
-        selectedCurrency.observeForever {
+        currencyList.observeForever { //and don't clear because currencyList child of view model
             cryptoListRepository.updateList(currencyList.value!!.get(selectedCurrency.value!!).id)
         }
     }
@@ -112,7 +109,7 @@ class CryptoListViewModel() : ViewModel() {
     fun onCurrencySelected(pos: Int, item: CurrencyItemModel){
         _selectedCurrency.postValue(pos)
         refreshState.value!!.isRefreshing = true
-        currencyRepository.update()
+        cryptoListRepository.updateList(item.id)
     }
 
     override fun onCleared() {
