@@ -3,6 +3,8 @@ package io.github.nhths.cryptolist.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.github.nhths.cryptolist.data.model.CryptoDetailsModel
+import io.github.nhths.cryptolist.data.model.Description
+import io.github.nhths.cryptolist.data.model.ImageUrl
 import io.github.nhths.cryptolist.data.service.CryptoDetailsService
 import io.github.nhths.cryptolist.utils.API_URL
 import retrofit2.Call
@@ -30,7 +32,7 @@ class CryptoDetailsRepository {
         download(cryptoId)
     }
 
-    fun download(cryptoId: String){
+    private fun download(cryptoId: String){
         cryptoDetailsService
             .getCryptoDetails(cryptoId)
             .enqueue(object : Callback<CryptoDetailsModel>{
