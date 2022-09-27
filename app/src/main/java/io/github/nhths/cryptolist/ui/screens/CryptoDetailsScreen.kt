@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -56,8 +57,12 @@ fun CryptoDetailsScreen(
             when(state){
                 CryptoDetailsViewModel.State.SHOWING -> {
                     Listing(
-                        icon = rememberAsyncImagePainter(model = cryptoDetails!!.imageUrl),
-                        description = cryptoDetails!!.description,
+                        icon = rememberAsyncImagePainter(
+                            model = cryptoDetails!!.imageUrl
+                        ),
+                        description = remember{
+                            cryptoDetails!!.description.replace("\\<.*?>".toRegex(), "")
+                        },
                         categories = cryptoDetails!!.categories
                     )
                 }
