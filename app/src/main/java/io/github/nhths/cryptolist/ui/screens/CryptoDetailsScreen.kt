@@ -1,6 +1,5 @@
 package io.github.nhths.cryptolist.ui.screens
 
-import android.icu.text.CaseMap.Title
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -31,17 +30,23 @@ import io.github.nhths.cryptolist.vm.CryptoDetailsViewModel
 @Composable
 fun CryptoDetailsScreen(
     cryptoId: String,
-    viewModel: CryptoDetailsViewModel = CryptoDetailsViewModel(cryptoId),
+    viewModel: CryptoDetailsViewModel =
+        androidx.lifecycle.viewmodel.compose.viewModel(
+            factory = CryptoDetailsViewModel.Factory(cryptoId)
+        ),
     onBackClicked: () -> Unit = {}
 ){
     val state by viewModel.state.observeAsState()
-
     val cryptoDetails by viewModel.cryptoDetails.observeAsState()
 
     Scaffold(
         topBar = {
+            var title = ""
+            cryptoDetails?.let {
+                title = it.name?: ""
+            }
             ToolBar(
-                title = cryptoDetails!!.name,
+                title = title,
                 canNavigateUp = true,
                 onClickBack = onBackClicked
             )
