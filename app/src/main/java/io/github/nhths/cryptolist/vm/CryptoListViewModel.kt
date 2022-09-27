@@ -2,6 +2,7 @@ package io.github.nhths.cryptolist.vm
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
@@ -51,22 +52,8 @@ class CryptoListViewModel() : ViewModel() {
     private val _selectedCurrency: MutableLiveData<Int> = MutableLiveData<Int>(0)
     val selectedCurrency: LiveData<Int> = _selectedCurrency
 
-    val cryptoList: LiveData<List<CryptoItemModel>> = Transformations
-        .map(cryptoListRepository.cryptoList) {
-            it?.let {
-                it.map {
-                    CryptoItemModel(
-                        id = it.id,
-                        name = it.name,
-                        ticker = it.ticker,
-                        currencySymbol = currencyList.value!!.get(selectedCurrency.value!!).symbol,
-                        price = it.price,
-                        diffPercentage = it.diffPercentage,
-                        imageUrl = it.imageUrl
-                    )
-                }
-            }
-        }
+    val _cryptoList = MediatorLiveData<List<CryptoItemModel>>()
+    val cryptoList: LiveData<List<CryptoItemModel>> = _cryptoList
 
     val errorObserver = Observer<Throwable> {
         if (state.value == State.LOADING) {
@@ -94,6 +81,28 @@ class CryptoListViewModel() : ViewModel() {
         currencyList.observeForever { //and don't clear because currencyList child of view model
             cryptoListRepository.updateList(currencyList.value!!.get(selectedCurrency.value!!).id)
         }
+
+        _cryptoList.addSource(cryptoListRepository.cryptoList){
+            viewModelScope.launch {
+                _cryptoList.postValue(
+                    mapCryptoModel( cryptoListRepository.cryptoList.value.orEmpty())
+                )
+            }
+        }
+    }
+
+    private fun mapCryptoModel(list: List<CryptoModel>) : List<CryptoItemModel>{
+        return list.map {
+            CryptoItemModel(
+                id = it.id,
+                name = it.name,
+                ticker = it.ticker,
+                currencySymbol = currencyList.value!!.get(selectedCurrency.value!!).symbol,
+                price = it.price,
+                diffPercentage = it.diffPercentage,
+                imageUrl = it.imageUrl
+            )
+        }
     }
 
     fun onListUpdate(){
@@ -102,7 +111,7 @@ class CryptoListViewModel() : ViewModel() {
     }
 
     fun onItemSelected(item: CryptoItemModel){
-        
+
     }
 
     fun onCurrencySelected(pos: Int, item: CurrencyItemModel){
