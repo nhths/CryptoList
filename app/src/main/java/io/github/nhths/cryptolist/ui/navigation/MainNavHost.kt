@@ -19,7 +19,7 @@ fun MainNavHost(){
         composable(route = MainRoutes.CRYPTO_LIST.toString()){
             CryptoListScreen(
                 onCryptoSelected = {
-                    navController.navigate("${MainRoutes.CRYPTO_DETAILS}/{${it}}") }
+                    navController.navigate("${MainRoutes.CRYPTO_DETAILS}/${it}") }
             )
         }
         composable(
