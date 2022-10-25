@@ -54,7 +54,7 @@ fun CryptoListScreen(
             when(state){
                 CryptoListViewModel.State.SHOWING -> {
                     Listing(
-                        cryptoItems = cryptoList!!,
+                        cryptoItems = cryptoList ?: emptyList(),
                         onRefreshSwiped = {_viewModel.onListUpdate()},
                         swipeRefreshState = swipeRefreshState!!,
                         onCryptoSelected = onCryptoSelected
