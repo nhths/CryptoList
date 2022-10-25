@@ -53,7 +53,7 @@ val ChipTextStyle = TextStyle(
 )
 
 val ItemLabelStyle = TextStyle(
-    fontFamily = FontFamily(Font(R.font.plusjakartasans)),
+    //fontFamily = FontFamily(Font(R.font.plusjakartasans)), //java.lang.IllegalStateException: Could not load font on android 7.0
     fontWeight = FontWeight.W500,
     fontSize = 16.sp,
     lineHeight = 20.sp, //rounded from 20.16 in figma
