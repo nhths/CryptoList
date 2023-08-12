@@ -16,7 +16,7 @@ fun MainNavHost(){
         navController = navController,
         startDestination = MainRoutes.CRYPTO_LIST
     ){
-        composable(route = MainRoutes.CRYPTO_LIST.toString()){
+        composable(route = MainRoutes.CRYPTO_LIST){
             CryptoListScreen(
                 onCryptoSelected = {
                     navController.navigate("${MainRoutes.CRYPTO_DETAILS}/${it}") }
@@ -39,7 +39,7 @@ private fun NavController.navigate(mainRoutes: MainRoutes) {
     navigate(mainRoutes.toString())
 }
 
-@SuppressLint("ComposableDestinationInComposeScope")
+/*@SuppressLint("ComposableDestinationInComposeScope")
 @Composable
 fun NavGraphBuilder.composable(
     route: MainRoutes,
@@ -47,7 +47,7 @@ fun NavGraphBuilder.composable(
     content: @Composable (NavBackStackEntry) -> Unit
 ) {
     composable(route = route.toString(), content = content)
-}
+}*/
 
 @Composable
 fun MainNavHost(navController: NavHostController,
